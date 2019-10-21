@@ -24,10 +24,8 @@ SELECT
 	,CASE 
 	WHEN a.title ILIKE '%Christmas%' THEN 'Christmas'
 	WHEN a.description ILIKE '%Christmas%' THEN 'Christmas'
-	WHEN a.title ILIKE '%Hanukkah%' THEN 'Hanukkah'
-	WHEN a.description ILIKE '%Hanukkah%' THEN 'Hanukkah'
-	WHEN a.title ILIKE '%Kwanzaa%' THEN 'Kwanzaa'
-	WHEN a.description ILIKE '%Kwanzaa%' THEN 'Kwanzaa'
+	WHEN a.title ILIKE '%Halloween%' THEN 'Halloween'
+	WHEN a.description ILIKE '%Halloween%' THEN 'Halloween'
 	END as "Holiday Title"
 
 FROM
@@ -35,6 +33,6 @@ FROM
 JOIN film b
 on a.title = b.title
 
-
-
+ORDER BY
+	3
 
