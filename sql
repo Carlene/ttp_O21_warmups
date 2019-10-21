@@ -26,6 +26,8 @@ SELECT
 	WHEN a.description ILIKE '%Christmas%' THEN 'Christmas'
 	WHEN a.title ILIKE '%Halloween%' THEN 'Halloween'
 	WHEN a.description ILIKE '%Halloween%' THEN 'Halloween'
+	WHEN a.title ILIKE '%Midsummer%' THEN 'Midsummer'
+	WHEN a.description ILIKE '%Midsummer%' THEN 'Midsummer'
 	END as "Holiday Title"
 
 FROM
@@ -36,3 +38,36 @@ on a.title = b.title
 ORDER BY
 	3
 
+-- DISCOUNT ATTEMPT
+
+WITH holiday_movies AS (SELECT
+							a.title
+							,a.description
+							,a.rental_rate
+							,CASE 
+							WHEN b.title ILIKE '%Christmas%' THEN 'Christmas'
+							WHEN b.description ILIKE '%Christmas%' THEN 'Christmas'
+							WHEN b.title ILIKE '%Halloween%' THEN 'Halloween'
+							WHEN b.description ILIKE '%Halloween%' THEN 'Halloween'
+							WHEN b.title ILIKE '%Midsummer%' THEN 'Midsummer'
+							WHEN b.description ILIKE '%Midsummer%' THEN 'Midsummer'
+							END as holiday_title
+
+						FROM
+							film a
+						JOIN film b
+						on a.title = b.title
+
+						ORDER BY
+							3)
+
+SELECT 
+	*
+	,CASE 
+	WHEN x.holiday_title IS NOT NULL THEN y.rental_rate = (x.rental_rate/2)
+	END as new_price
+
+FROM
+	holiday_movies x
+LEFT JOIN holiday_movies y
+ON x.holiday_title = y.holiday_title
